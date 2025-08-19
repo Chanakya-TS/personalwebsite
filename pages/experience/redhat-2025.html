@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Red Hat — Software Engineer Intern (2025)</title>
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../../index.html#home">CTS</a>
+        <nav class="nav" aria-label="Primary">
+          <ul class="nav-list" id="nav-list">
+            <li><a href="../../index.html#experience">Back</a></li>
+          </ul>
+        </nav>
+        
+      </div>
+    </header>
+
+    <main>
+      <section class="container page-header">
+        <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="../../index.html#experience">Experience</a> / Red Hat 2025</div>
+        <h1>Software Engineer Intern — Red Hat</h1>
+        <p class="muted">May 2025 – Aug 2025 • Go · PostgreSQL · Kubernetes · Operators</p>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="prose">
+            <h2>Overview</h2>
+            <p>
+              Extended the Model Registry to support PostgreSQL alongside MySQL, added SSL/TLS for secure connections,
+              aligned deployment overlays, fixed readiness probe behavior, and implemented auto‑provisioning of a
+              production‑ready PostgreSQL database with persistent storage via the Operator.
+            </p>
+
+            <h2>Key contributions</h2>
+            <ul class="list">
+              <li>Added full PostgreSQL backend for EmbedMD: connector, schema migrations, and configuration options.</li>
+              <li>Implemented SSL/TLS for PostgreSQL connections with URL and key‑value DSN formats, including client/root certs.</li>
+              <li>Resolved circular dependencies by introducing a shared internal db types package and updated integration points.</li>
+              <li>Aligned Kubernetes kustomize overlays with MySQL equivalents and fixed readiness probe type handling.</li>
+              <li>Introduced auto‑provisioning of PostgreSQL with PVC, managed by the Operator when <code>postgres.generate</code> is enabled.</li>
+              <li>Enhanced CI and build: schema generation for both DBs, Makefile targets, and container management.</li>
+            </ul>
+
+            <h2>Technical highlights</h2>
+            <ul class="list">
+              <li>PostgreSQL connector with TLSConfig, exponential backoff (25 attempts ~5 minutes), and robust DSN builders.</li>
+              <li>Support for <code>verify-full</code> and <code>require</code> SSL modes; client/root certificates via <code>sslcert</code>, <code>sslkey</code>, <code>sslrootcert</code>.</li>
+              <li>Controller logic to create Deployment, Service, Secret, and PVC for auto‑provisioned PostgreSQL using Red Hat images.</li>
+              <li>Webhook validation updates (v1alpha1/v1beta1) and RBAC permissions for Secret and PVC management.</li>
+              <li>GitHub Actions checks for schema struct generation across MySQL and PostgreSQL; Makefile targets for DB lifecycle.</li>
+            </ul>
+
+            <h2>Impact</h2>
+            <ul class="list">
+              <li>Broadened database compatibility and reduced onboarding friction with out‑of‑the‑box PostgreSQL.</li>
+              <li>Improved security posture via TLS; increased reliability with readiness fixes and retry/backoff.</li>
+              <li>Simplified deployments and standardized overlays for consistent operations across environments.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="muted">© <span id="year"></span> Chanakya Thirumala Setty</p>
+      </div>
+    </footer>
+    <script src="../../script.js"></script>
+  </body>
+  </html>
+
+
+
