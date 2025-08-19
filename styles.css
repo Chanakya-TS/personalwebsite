@@ -40,13 +40,30 @@ body::before {
     radial-gradient(620px 420px at 88% 22%, color-mix(in srgb, #22d3ee 38%, transparent), transparent 60%),
     radial-gradient(760px 520px at 50% 108%, color-mix(in srgb, #a78bfa 32%, transparent), transparent 60%),
     radial-gradient(540px 320px at 50% -8%, color-mix(in srgb, #f59e0b 18%, transparent), transparent 60%);
-  animation: bg-drift 60s ease-in-out infinite alternate;
+  animation: bg-drift 30s ease-in-out infinite;
 }
 
 @keyframes bg-drift {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(1%, -1%, 0) scale(1.02); }
-  100% { transform: translate3d(-1%, 1%, 0) scale(1.03); }
+  0% { 
+    transform: translate3d(0, 0, 0) scale(1);
+    background-position: 12% 18%, 88% 22%, 50% 108%, 50% -8%;
+  }
+  25% { 
+    transform: translate3d(15%, -10%, 0) scale(1.1);
+    background-position: 35% 40%, 60% 45%, 25% 70%, 75% 15%;
+  }
+  50% { 
+    transform: translate3d(8%, 20%, 0) scale(1.2);
+    background-position: 45% 50%, 50% 55%, 15% 60%, 85% 25%;
+  }
+  75% { 
+    transform: translate3d(-12%, 12%, 0) scale(1.15);
+    background-position: 25% 60%, 70% 65%, 35% 50%, 65% 35%;
+  }
+  100% { 
+    transform: translate3d(0, 0, 0) scale(1);
+    background-position: 12% 18%, 88% 22%, 50% 108%, 50% -8%;
+  }
 }
 
 /* Layout */
@@ -59,10 +76,61 @@ body::before {
 
 .section { padding: 56px 0; }
 .hero { padding: 96px 0 56px; background: linear-gradient(180deg, rgba(96,165,250,0.08), transparent 35%); }
+.hero-content { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+.hero-text { max-width: 600px; }
 .hero .subhead { max-width: 720px; }
 .hero .actions { display: flex; gap: 10px; margin-top: 12px; }
 .hero .socials { margin-top: 10px; }
 .hero .meta { margin-top: 8px; }
+
+/* Profile picture styling */
+.hero-image { display: flex; justify-content: center; align-items: center; }
+.profile-picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid color-mix(in srgb, var(--brand) 35%, var(--border));
+  box-shadow: var(--shadow), 0 0 0 1px color-mix(in srgb, var(--brand) 15%, var(--border));
+  background: var(--card);
+  position: relative;
+}
+
+.profile-picture::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--brand), #22d3ee, #a78bfa);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transform: scale(1.5);
+}
+
+/* Responsive design for hero section */
+@media (max-width: 768px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  
+  .hero-text {
+    max-width: none;
+  }
+  
+  .profile-picture {
+    width: 160px;
+    height: 160px;
+  }
+}
 
 /* Header */
 .site-header {
