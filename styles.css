@@ -114,35 +114,18 @@ body::before {
   transform: scale(1.5);
 }
 
-/* Responsive design for hero section */
-@media (max-width: 768px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    text-align: center;
-  }
-  
-  .hero-text {
-    max-width: none;
-  }
-  
-  .profile-picture {
-    width: 160px;
-    height: 160px;
-  }
-}
-
 /* Header */
 .site-header {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 0; z-index: 1000;
   background: color-mix(in srgb, var(--bg) 85%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; position: relative; }
 .brand { color: var(--text); text-decoration: none; font-weight: 800; letter-spacing: 0.5px; }
 
 .nav-toggle { display: none; }
+.nav { position: relative; z-index: 9999; }
 .nav-list { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
 .nav-list a { color: var(--muted); text-decoration: none; font-weight: 500; }
 .nav-list a:hover { color: var(--text); }
@@ -175,10 +158,21 @@ h4 { font-size: 15px; margin: 0 0 6px; color: var(--muted); }
 }
 /* Remove sibling margin to avoid misalignment inside grids; spacing is handled by grid gaps */
 /* .card + .card { margin-top: 12px; } */
-.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
-.card-head { flex-wrap: wrap; }
-/* Always place the badge on the second line within Projects & Papers only */
-#projects .card .card-head > .badge { flex-basis: 100%; margin-top: 4px; }
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+/* Better badge layout for projects */
+#projects .card .card-head {
+  align-items: flex-start;
+}
+
+#projects .card .card-head h3 {
+  flex: 1;
+  min-width: 0;
+}
+
+#projects .card .card-head .badge {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
 .badge { background: color-mix(in srgb, var(--brand) 15%, var(--bg)); color: var(--text); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); font-size: 12px; white-space: nowrap; }
 .badge { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -288,17 +282,512 @@ details.card .card-content { padding: 12px 14px; }
 #tooltip[data-pos="below"] { transform: translate(-50%, 10px); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .grid.two { grid-template-columns: 1fr; }
-  .grid.three { grid-template-columns: 1fr; }
-  .grid.three > .card { min-height: unset; }
+/* Enhanced Mobile Responsiveness */
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  .hero-content {
+    gap: 40px;
+  }
+  
+  .profile-picture {
+    width: 180px;
+    height: 180px;
+  }
 }
 
+/* Tablets */
+@media (max-width: 900px) {
+  .grid.two { grid-template-columns: 1fr; }
+  .grid.three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid.three > .card { min-height: unset; }
+  
+  .hero-content {
+    gap: 32px;
+  }
+  
+  .profile-picture {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .section {
+    padding: 48px 0;
+  }
+  
+  .hero {
+    padding: 80px 0 48px;
+  }
+}
+
+/* Mobile navigation and layout */
 @media (max-width: 760px) {
-  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
-  .nav-list { position: absolute; top: 56px; right: 12px; background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: 10px; padding: 8px; display: none; flex-direction: column; min-width: 168px; }
-  .nav-list.open { display: flex; }
+  .nav-toggle { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: transparent; 
+    border: 1px solid var(--border); 
+    color: var(--text); 
+    padding: 8px 10px; 
+    border-radius: 10px; 
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10000;
+    position: relative;
+  }
+  
+  /* Close button for full-screen menu */
+  .nav-list::before {
+    content: "✕";
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: var(--text);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--brand) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand) 20%, var(--border));
+    transition: all 0.3s ease;
+  }
+  
+  .nav-list::before:hover {
+    background: color-mix(in srgb, var(--brand) 20%, transparent);
+    transform: scale(1.1);
+  }
+  
+  .nav-list { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background: var(--bg); 
+    display: none; 
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+  }
+  
+  .nav-list.open { 
+    display: flex; 
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .nav-list li {
+    margin: 12px 0;
+    text-align: center;
+  }
+  
+  .nav-list a {
+    display: block;
+    padding: 16px 24px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    background: color-mix(in srgb, var(--brand) 5%, transparent);
+    border: 1px solid color-mix(in srgb, var(--brand) 20%, var(--border));
+  }
+  
+  .nav-list a:hover {
+    background-color: color-mix(in srgb, var(--brand) 15%, transparent);
+    border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
+    transform: translateY(-2px);
+  }
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+  
+  .hero-text {
+    max-width: none;
+  }
+  
+  .profile-picture {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+  
+  .hero {
+    padding: 64px 0 40px;
+  }
+  
+  .section {
+    padding: 40px 0;
+  }
+  
+  .hero .actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .hero .socials {
+    justify-content: center;
+  }
+  
+  .socials {
+    gap: 10px;
+  }
+  
+  .social-link {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .grid.three {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .card-head .badge {
+    align-self: flex-start;
+  }
+  
+  /* Better badge layout on mobile for projects */
+  #projects .card .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  
+  #projects .card .card-head h3 {
+    flex: none;
+  }
+  
+  #projects .card .card-head .badge {
+    margin-top: 0;
+  }
+  
+  .chips {
+    gap: 6px;
+  }
+  
+  .chip {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+  
+  .contact {
+    justify-content: center;
+  }
+  
+  .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  
+  /* Improve marquee for mobile */
+  .marquee {
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+  
+  .marquee .chip {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
+  /* Better spacing for mobile */
+  .card {
+    padding: 16px;
+  }
+  
+  .card .card-body {
+    gap: 8px;
+  }
+  
+  .card .card-body p:last-of-type {
+    -webkit-line-clamp: 3;
+  }
+  
+  /* Improve video responsiveness */
+  .video {
+    margin: 16px 0;
+  }
+  
+  /* Better prose spacing on mobile */
+  .prose h2 {
+    margin: 16px 0 8px;
+  }
+  
+  .prose p {
+    margin: 10px 0;
+  }
+  
+  .prose ul {
+    margin: 8px 0 12px 20px;
+  }
+  
+  .prose li {
+    margin: 6px 0;
+  }
+  
+  /* Improve breadcrumb on mobile */
+  .breadcrumb {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .page-header {
+    padding: 32px 0 12px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .hero {
+    padding: 56px 0 32px;
+  }
+  
+  .section {
+    padding: 32px 0;
+  }
+  
+  .profile-picture {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .hero .subhead {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .eyebrow {
+    font-size: 11px;
+  }
+  
+  .card {
+    padding: 14px;
+  }
+  
+  .social-link {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .social-link svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .chips {
+    gap: 4px;
+  }
+  
+  .chip {
+    font-size: 10px;
+    padding: 5px 7px;
+  }
+  
+  .marquee .chip {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  
+  .btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  
+  /* Improve navigation for very small screens */
+  .nav-list {
+    right: 8px;
+    min-width: 140px;
+  }
+  
+  .nav-list a {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+  
+  /* Better grid spacing for small screens */
+  .grid {
+    gap: 10px;
+  }
+  
+  .stack {
+    gap: 10px;
+  }
+  
+  /* Improve contact section */
+  .contact {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .hero {
+    padding: 48px 0 24px;
+  }
+  
+  .section {
+    padding: 24px 0;
+  }
+  
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .card {
+    padding: 12px;
+  }
+  
+  .social-link {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .social-link svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .chip {
+    font-size: 9px;
+    padding: 4px 6px;
+  }
+  
+  /* Ensure badges don't get too small on very small screens */
+  .badge {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  .marquee .chip {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .nav-list {
+    min-width: 120px;
+  }
+  
+  .nav-list a {
+    padding: 5px 8px;
+    font-size: 13px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    padding: 40px 0 24px;
+  }
+  
+  .profile-picture {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .hero-content {
+    gap: 20px;
+  }
+  
+  .section {
+    padding: 24px 0;
+  }
+}
+
+/* Loading state for better mobile experience */
+body:not(.loaded) {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+/* Touch improvements */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover,
+  .social-link:hover,
+  .card.link:hover {
+    transform: none;
+    filter: none;
+  }
+  
+  .btn:active,
+  .social-link:active,
+  .card.link:active {
+    transform: scale(0.98);
+  }
+  
+  /* Improve touch targets */
+  .btn,
+  .social-link,
+  .nav-list a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better touch feedback */
+  .card.link {
+    transition: transform 0.1s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+  }
+  
+  .card.link:active {
+    transform: translateY(0);
+    border-color: color-mix(in srgb, var(--brand) 25%, var(--border));
+  }
 }
 
 /* Motion */

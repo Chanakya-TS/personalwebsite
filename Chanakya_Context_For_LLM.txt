@@ -1,0 +1,233 @@
+COMPREHENSIVE CONTEXT FOR LLM - CHANAKYA THIRUMALA SETTY
+================================================================================
+
+PERSONAL INFORMATION
+--------------------------------------------------------------------------------
+Name: Chanakya Thirumala Setty
+Email: cthirumalasetty@crimson.ua.edu
+LinkedIn: https://www.linkedin.com/in/chanakyats
+GitHub: https://github.com/ChanakyaTS
+Languages: English (Native), Telugu (Native)
+
+CURRENT STATUS
+--------------------------------------------------------------------------------
+• Software Engineer and Researcher
+• Currently pursuing accelerated M.S. in Computer Science alongside B.S. in Computer Science and Mathematics (Dual Major)
+• Class of 2026 at The University of Alabama
+• GPA: 4.0/4.0
+• SAT Score: 1530 (790 Math, 740 ERW)
+
+PROFESSIONAL SUMMARY
+--------------------------------------------------------------------------------
+Software Engineer and Researcher focused on practical, high-impact systems: from 
+multi-tenant metadata services and compiler-adjacent tooling to underwater acoustic 
+communications. I enjoy building well-designed software with clear interfaces, 
+measurable performance, and strong reliability guarantees. Currently pursuing an 
+accelerated M.S. in Computer Science alongside a B.S. in Computer Science and 
+Mathematics at The University of Alabama.
+
+EDUCATION DETAILS
+--------------------------------------------------------------------------------
+The University of Alabama
+• Class of 2026
+• GPA: 4.0/4.0
+• (Accelerated) M.S. in Computer Science and B.S. in Computer Science and Mathematics (Dual Major)
+• SAT: 1530 (790 Math, 740 ERW)
+
+Computer Science Coursework:
+• Artificial Intelligence, Reinforcement Learning, Data Science
+• Software Design & Engineering, Data Structures & Algorithms, Operating Systems
+• Database Management, Compiler Construction, Microcomputers
+
+Mathematics Coursework:
+• Calculus II & III, Applied Differential Equations, Discrete Mathematics
+• Probability & Applied Statistics, Linear Algebra
+• Linear & Non-Linear Optimization
+
+DETAILED EXPERIENCE
+--------------------------------------------------------------------------------
+
+Software Engineer Intern — Red Hat (Summer 2025, May – August)
+• Technologies: Go, PostgreSQL, Kubernetes
+• Added PostgreSQL + TLS support, standardized overlays, and auto-provisioned DB via Operator
+• Focused on database infrastructure and container orchestration
+
+Software Engineer Intern — Red Hat (Summer 2024, May – August)
+• Technologies: C++, Go, Kubernetes
+• Built multi-tenancy in ml-metadata; optimized tenant-scoped schemas and queries
+• Worked on machine learning metadata management systems
+• Implemented tenant isolation and performance optimizations
+
+Software Engineer Intern — Red Hat (Summer 2023, May – August)
+• Technologies: Analyzer-LSP, Open Source Software
+• Contributed features and fixes to Konveyer (Analyzer-LSP); reviewed and merged PRs
+• Worked on language server protocol implementations
+• Participated in open source development and code reviews
+
+Undergraduate Researcher — MuLink (Underwater Acoustic Modem) (October 2024 – Present)
+• Technologies: C++, Raspberry Pi, Digital Signal Processing
+• Developed FSK/FFT modem; improved SNR and range via HW/SW co-design
+• Working on underwater communication systems
+• Focus on signal processing and hardware-software co-design for acoustic communications
+
+Undergraduate Researcher — Human Technology Interaction Lab (HTIL) (November 2022 – May 2024)
+• Technologies: Brain-Computer Interface (BCI), Drones, Computer Vision/Machine Learning
+• Built BCI-driven drone control; researched EEG ML pipelines; organized lab showcase
+• Writing paper on static object tracking
+• Worked on brain-computer interfaces for drone control
+• Conducted research on EEG signal processing and machine learning pipelines
+• Organized laboratory showcases and presentations
+
+DETAILED PROJECTS & PAPERS
+--------------------------------------------------------------------------------
+
+Recall.ai — 1st Place, HackPrinceton 2024 (Patient Safety Challenge & Pharma Track)
+• Technologies: Next.js, FastAPI, Gemini AI, MongoDB
+• Problem: Millions of people with mild cognitive impairment struggle to recognize loved ones and manage daily life, leading to isolation and loss of independence.
+• Solution: A wearable memory support platform that uses smart glasses to identify people in real time, provide gentle reminders about relationships, and assist with routines—helping users stay connected and independent.
+• Technical Details:
+  - Facial recognition and speech processing powered by Gemini AI
+  - Next.js frontend, FastAPI backend, MongoDB for data, and on-device optimization
+  - Real-time reminders and context delivered through smart glasses and wearables
+• Project Link: https://dorahacks.io/buidl/19381
+• Demo Video: https://youtu.be/dxmZnS_8mQE
+
+FirefightAR — 3rd Place, Georgia Tech Snap Challenge
+• Technologies: Lens Studio, YOLOv5, Firebase
+• Problem: Firefighters face low-visibility and rapidly changing environments. Quick identification of hazards, exits, and victims can save lives.
+• Solution: An AR experience for Snap Spectacles that highlights hazards and victims in real-time and guides users to exits with contextual overlays.
+• Technical Details:
+  - YOLOv5 model tuned for smoke/low-light conditions
+  - Lens Studio rendering with on-device inference constraints
+  - Realtime data sync and event logging with Firebase
+• Project Link: https://devpost.com/software/firefightar
+• Demo Video: https://youtu.be/5kJbbtYJP7c
+
+Garuda — 2nd Place, HackHarvard
+• Technologies: Next.js, MSNet, Llava VLM, Firebase
+• Overview: AI-driven disaster response platform with realtime incident heatmaps, drone-assisted damage analysis, and automated rescue alerts.
+• Features:
+  - Damage classification and summarization (recovery costs, environmental impact)
+  - Incident heatmaps with live updates and alerting
+  - Drone imagery ingestion and VLM analysis
+• Stack:
+  - Next.js frontend; Firebase auth/persistence
+  - MSNet + Llava VLM for vision-language understanding
+• Impact:
+  - 2nd place overall at HackHarvard
+  - Demonstrated rapid triage and situational awareness improvements
+• Project Link: https://devpost.com/software/garuda-pb7qtf
+• Demo Video: https://youtu.be/Whb40BVR0S8
+
+Mars Rover Simulation — Runner Up, Auburn Hacks 2024
+• Technologies: Unity, Blender, Large Language Models, GitHub
+• Overview: A thrilling Mars exploration experience using real Martian terrain data. Players interact with non-player characters powered by large language models (LLMs) who guide them through scientific missions and challenges.
+• Features:
+  - Real elevation/terrain import and rover-style traversal
+  - LLM-powered NPC guides for contextual mission prompts and feedback
+  - Mission system with sampling, navigation, and hazard avoidance tasks
+• Technical Details:
+  - Unity for gameplay, physics, and UX; Blender for rover and environment assets
+  - LLM agent prompts and conversation state management for NPC interactions
+  - Version control and collaboration via GitHub
+• Outcome:
+  - Runner Up at Auburn Hacks 2024
+  - Positive feedback on educational value and immersion
+• Project Link: https://devpost.com/software/courage-the-not-so-cowardly-rover
+
+BCI Framework — ACMSE 2024
+• Technologies: Research, Neurosity, Robotics
+• Description: Closed-loop multi-party EEG-based robotic system architecture
+• Presented at ACMSE 2024 conference
+
+Real-time Invariant Object Detection — HCII '24, URCA '24
+• Technologies: Research, Cursor detection
+• Description: Three algorithmic iterations for robust cursor detection/tracking across video frames under varied constraints
+• Presented at HCII '24 and URCA '24 conferences
+
+COMPREHENSIVE TECHNICAL SKILLS
+--------------------------------------------------------------------------------
+
+Programming Languages:
+• C, C++, C#, Rust, Python, Go, JavaScript, SQL, MATLAB, R
+
+Machine Learning & Data Science:
+• TensorFlow, PyTorch, scikit-learn, Keras, NumPy, Pandas
+
+Web Development:
+• Node.js, React, React Native, HTML, CSS
+
+Databases & Cloud:
+• PostgreSQL, MongoDB, Firebase
+
+DevOps & Tools:
+• Git, Docker, Kubernetes, OpenShift, Linux, Bash
+
+Game Development & 3D:
+• Unity, Blender
+
+Mobile & Platforms:
+• Android
+
+Methodologies:
+• Agile Scrum
+
+HONORS & AWARDS (COMPLETE LIST)
+--------------------------------------------------------------------------------
+
+Hackathon Achievements:
+• HackPrinceton — 1st Overall (Recall.ai) - Patient Safety Challenge & Pharma Track
+• HackHarvard — 2nd Overall (Garuda)
+• Georgia Tech Snap Challenge — 3rd Place (FirefightAR) - SnapAR Elexa Power Bank (20000mAH)
+• Auburn Hacks — Runner Up (Mars Rover Simulation) - Best Overall Hack Runner Up
+
+Competitive Programming:
+• ICPC Southeast USA Regional — Silver Medal (2023)
+• Indian National Olympiad in Informatics — Silver Medal (2022)
+
+Academic Recognition:
+• Outstanding Undergraduate Researcher Award (2023) — Computer Science Department, UA
+• Undergraduate Research Ambassador — Selected by University of Alabama
+• President's List (2022–2024) — 4.0 GPA recognition across multiple terms
+• Presidential & Engineering Scholarships — Recipient of UA scholarships
+
+Leadership:
+• Competitive Programming Club President
+
+RESEARCH INTERESTS
+--------------------------------------------------------------------------------
+• Brain-Computer Interfaces and Human-Computer Interaction
+• Underwater Acoustic Communications and Signal Processing
+• Computer Vision and Machine Learning
+• Software Engineering and System Design
+• Educational Technology and Game Development
+
+PUBLICATIONS & PRESENTATIONS
+--------------------------------------------------------------------------------
+• "Real-time Invariant Object Detection" — HCII '24, URCA '24
+• "BCI Framework" — ACMSE 2024
+• Static object tracking paper (in progress) — HTIL Lab
+
+PERSONAL CHARACTERISTICS & WORK STYLE
+--------------------------------------------------------------------------------
+• Focuses on practical, high-impact systems
+• Enjoys building well-designed software with clear interfaces
+• Values measurable performance and strong reliability guarantees
+• Has experience with both industry internships and academic research
+• Demonstrates strong problem-solving skills through hackathon successes
+• Shows leadership through club presidency and research organization
+• Maintains excellent academic performance (4.0 GPA)
+• Bilingual (English and Telugu)
+
+CAREER INTERESTS
+--------------------------------------------------------------------------------
+• Software Engineering roles in industry
+• Research positions in academia or industry labs
+• Focus areas: systems engineering, machine learning, computer vision
+• Interest in both technical implementation and research innovation
+• Experience with both startup-style hackathon projects and enterprise software development
+
+================================================================================
+This context provides a complete picture of Chanakya Thirumala Setty's background, 
+skills, experience, and achievements for use in LLM interactions. All information 
+is current as of January 2025.

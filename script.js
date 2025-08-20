@@ -7,10 +7,64 @@
   // Theme
   html.setAttribute('data-theme', 'dark');
 
-  // Mobile nav
+  // Enhanced mobile navigation
   navToggle?.addEventListener('click', () => {
     const isOpen = navList.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(isOpen));
+    
+    // Prevent body scroll when menu is open
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close mobile menu when clicking outside or on close button
+  document.addEventListener('click', (e) => {
+    if (navList?.classList.contains('open')) {
+      // Check if clicking on close button (the ::before pseudo-element)
+      const rect = navList.getBoundingClientRect();
+      const closeButtonArea = {
+        top: rect.top + 20,
+        right: rect.right - 20,
+        bottom: rect.top + 60,
+        left: rect.right - 60
+      };
+      
+      const isClickingCloseButton = e.clientX >= closeButtonArea.left && 
+                                   e.clientX <= closeButtonArea.right &&
+                                   e.clientY >= closeButtonArea.top && 
+                                   e.clientY <= closeButtonArea.bottom;
+      
+      if (isClickingCloseButton || 
+          (!navList.contains(e.target) && !navToggle?.contains(e.target))) {
+        navList.classList.remove('open');
+        navToggle?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    }
+  });
+
+  // Close mobile menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navList?.classList.contains('open')) {
+      navList.classList.remove('open');
+      navToggle?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close mobile menu on window resize (if screen becomes larger)
+  let previousWidth = window.innerWidth;
+  window.addEventListener('resize', () => {
+    const currentWidth = window.innerWidth;
+    if (currentWidth > 760 && previousWidth <= 760 && navList?.classList.contains('open')) {
+      navList.classList.remove('open');
+      navToggle?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    previousWidth = currentWidth;
   });
 
   // Smooth scroll for internal links and close mobile menu
@@ -23,9 +77,22 @@
       if (section) {
         e.preventDefault();
         const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        section.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-        navList?.classList.remove('open');
-        navToggle?.setAttribute('aria-expanded', 'false');
+        
+        // Close mobile menu before scrolling
+        if (navList?.classList.contains('open')) {
+          navList.classList.remove('open');
+          navToggle?.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+        
+        // Add offset for fixed header
+        const headerHeight = 56;
+        const elementPosition = section.offsetTop - headerHeight - 20;
+        
+        window.scrollTo({
+          top: elementPosition,
+          behavior: reduce ? 'auto' : 'smooth'
+        });
       }
     }
   });
@@ -34,7 +101,7 @@
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 
-  // Honors tooltips (fixed-position to avoid clipping)
+  // Enhanced Honors tooltips with mobile support
   function ensureTooltip() {
     if (!tooltipEl) {
       tooltipEl = document.createElement('div');
@@ -43,41 +110,116 @@
     }
   }
 
-  document.addEventListener('mouseover', (e) => {
-    const target = e.target;
-    if (!(target instanceof Element)) return;
-    if (target.matches('.marquee__item[data-tip]')) {
-      ensureTooltip();
-      tooltipEl.textContent = target.getAttribute('data-tip') || '';
-      const rect = target.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.bottom;
+  // Touch and mouse support for tooltips
+  function showTooltip(target) {
+    if (!target.matches('.marquee__item[data-tip]')) return;
+    
+    ensureTooltip();
+    tooltipEl.textContent = target.getAttribute('data-tip') || '';
+    const rect = target.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.bottom;
+    
+    // Adjust position for mobile
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      tooltipEl.style.left = '50%';
+      tooltipEl.style.top = `${y + 10}px`;
+      tooltipEl.style.transform = 'translateX(-50%)';
+    } else {
       tooltipEl.setAttribute('data-pos', 'below');
       tooltipEl.style.left = `${x}px`;
       tooltipEl.style.top = `${y}px`;
-      tooltipEl.style.opacity = '1';
+      tooltipEl.style.transform = '';
     }
+    
+    tooltipEl.style.opacity = '1';
+  }
+
+  function hideTooltip() {
+    if (tooltipEl) tooltipEl.style.opacity = '0';
+  }
+
+  // Mouse events
+  document.addEventListener('mouseover', (e) => {
+    showTooltip(e.target);
   });
 
   document.addEventListener('mousemove', (e) => {
     if (!tooltipEl || tooltipEl.style.opacity !== '1') return;
     const active = document.querySelector('.marquee__item[data-tip]:hover');
     if (!active) return;
+    
     const rect = active.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
     const y = rect.bottom;
-    tooltipEl.setAttribute('data-pos', 'below');
-    tooltipEl.style.left = `${x}px`;
-    tooltipEl.style.top = `${y}px`;
+    
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
+      tooltipEl.setAttribute('data-pos', 'below');
+      tooltipEl.style.left = `${x}px`;
+      tooltipEl.style.top = `${y}px`;
+    }
   });
 
   document.addEventListener('mouseout', (e) => {
-    const target = e.target;
-    if (!(target instanceof Element)) return;
-    if (target.matches('.marquee__item[data-tip]')) {
-      if (tooltipEl) tooltipEl.style.opacity = '0';
+    if (e.target.matches('.marquee__item[data-tip]')) {
+      hideTooltip();
     }
   });
+
+  // Touch events for mobile
+  let touchTimeout;
+  document.addEventListener('touchstart', (e) => {
+    const target = e.target;
+    if (!target.matches('.marquee__item[data-tip]')) return;
+    
+    // Clear any existing timeout
+    clearTimeout(touchTimeout);
+    
+    // Show tooltip after a short delay
+    touchTimeout = setTimeout(() => {
+      showTooltip(target);
+    }, 500);
+  });
+
+  document.addEventListener('touchend', () => {
+    clearTimeout(touchTimeout);
+    // Hide tooltip after a delay on touch end
+    setTimeout(hideTooltip, 2000);
+  });
+
+  // Hide tooltip on scroll
+  document.addEventListener('scroll', () => {
+    hideTooltip();
+  });
+
+  // Add loading state for better mobile experience
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add a small delay to ensure smooth loading on mobile
+    setTimeout(() => {
+      document.body.classList.add('loaded');
+    }, 100);
+  });
+
+  // Improve touch targets for mobile
+  function improveTouchTargets() {
+    const touchTargets = document.querySelectorAll('.btn, .social-link, .nav-list a');
+    touchTargets.forEach(target => {
+      const rect = target.getBoundingClientRect();
+      if (rect.width < 44 || rect.height < 44) {
+        target.style.minHeight = '44px';
+        target.style.minWidth = '44px';
+        target.style.display = 'flex';
+        target.style.alignItems = 'center';
+        target.style.justifyContent = 'center';
+      }
+    });
+  }
+
+  // Call on load and resize
+  improveTouchTargets();
+  window.addEventListener('resize', improveTouchTargets);
 })();
 
 
