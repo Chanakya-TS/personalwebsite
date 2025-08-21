@@ -73,33 +73,35 @@
     previousWidth = currentWidth;
   });
 
-  // Smooth scroll for internal links and close mobile menu
+  // Handle navigation links - close mobile menu and smooth scroll
   document.addEventListener('click', (e) => {
     const target = e.target;
     if (!(target instanceof Element)) return;
+    
+    // Check if it's an anchor link
     if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
-      const id = target.getAttribute('href');
-      const section = id && document.querySelector(id);
-      if (section) {
-        e.preventDefault();
-        const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const href = target.getAttribute('href');
+      console.log('Clicked anchor link:', href); // Debug log
+      
+      // Close mobile menu if open (regardless of where the link was clicked)
+      const isMenuOpen = navList?.classList.contains('open');
+      if (isMenuOpen) {
+        e.preventDefault(); // Only prevent default if menu is open
+        console.log('Closing mobile menu'); // Debug log
+        navList.classList.remove('open');
+        navToggle?.setAttribute('aria-expanded', 'false');
+        document.querySelector('.nav')?.appendChild(navList);
+        document.body.style.overflow = '';
         
-        // Close mobile menu before scrolling
-        if (navList?.classList.contains('open')) {
-          navList.classList.remove('open');
-          navToggle?.setAttribute('aria-expanded', 'false');
-          document.querySelector('.nav').appendChild(navList);
-          document.body.style.overflow = '';
-        }
-        
-        // Add offset for fixed header
-        const headerHeight = 56;
-        const elementPosition = section.offsetTop - headerHeight - 20;
-        
-        window.scrollTo({
-          top: elementPosition,
-          behavior: reduce ? 'auto' : 'smooth'
-        });
+        // After closing menu, trigger the link click again
+        setTimeout(() => {
+          console.log('Re-clicking link after menu closed'); // Debug log
+          target.click();
+        }, 200);
+      } else {
+        // Menu is not open, let browser handle the scroll naturally
+        console.log('Menu not open, allowing natural scroll'); // Debug log
+        // Don't prevent default - let browser handle it
       }
     }
   });
