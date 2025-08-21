@@ -125,7 +125,8 @@ body::before {
 .brand { color: var(--text); text-decoration: none; font-weight: 800; letter-spacing: 0.5px; }
 
 .nav-toggle { display: none; }
-.nav { position: relative; z-index: 9999; }
+.nav { position: relative; z-index: 10001; }
+
 .nav-list { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
 .nav-list a { color: var(--muted); text-decoration: none; font-weight: 500; }
 .nav-list a:hover { color: var(--text); }
@@ -252,6 +253,7 @@ details.card .card-content { padding: 12px 14px; }
 /* Ensure content layers above background */
 .site-header, main, .site-footer { position: relative; z-index: 1; }
 
+
 /* Honors marquee */
 .marquee { position: relative; overflow: visible; padding: 8px 0; mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); z-index: 2; }
 .marquee__track { display: flex; width: max-content; animation: marquee 22s linear infinite; gap: 24px; }
@@ -337,7 +339,7 @@ details.card .card-content { padding: 12px 14px; }
     border-radius: 10px; 
     cursor: pointer;
     font-size: 16px;
-    z-index: 10000;
+    z-index: 10002;
     position: relative;
   }
   
@@ -347,14 +349,19 @@ details.card .card-content { padding: 12px 14px; }
     position: absolute;
     top: 20px;
     right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 24px;
     color: var(--text);
     cursor: pointer;
-    padding: 8px;
     border-radius: 50%;
     background: color-mix(in srgb, var(--brand) 10%, transparent);
     border: 1px solid color-mix(in srgb, var(--brand) 20%, var(--border));
     transition: all 0.3s ease;
+    z-index: 1000000;
   }
   
   .nav-list::before:hover {
@@ -366,21 +373,24 @@ details.card .card-content { padding: 12px 14px; }
     position: fixed; 
     top: 0; 
     left: 0; 
-    right: 0; 
-    bottom: 0; 
+    width: 100vw;
+    height: 100vh;
     background: var(--bg); 
     display: none; 
     flex-direction: column; 
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    z-index: 9999;
-    padding: 20px;
+    z-index: 2147483647;
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+    gap: 8px;
   }
   
   .nav-list.open { 
     display: flex; 
     animation: fadeIn 0.3s ease-out;
   }
+  
   
   @keyframes fadeIn {
     from {
@@ -394,12 +404,15 @@ details.card .card-content { padding: 12px 14px; }
   }
   
   .nav-list li {
-    margin: 12px 0;
+    margin: 0;
     text-align: center;
+    width: 100%;
+    max-width: 300px;
   }
   
   .nav-list a {
     display: block;
+    width: 100%;
     padding: 16px 24px;
     border-radius: 12px;
     transition: all 0.3s ease;
@@ -408,6 +421,7 @@ details.card .card-content { padding: 12px 14px; }
     color: var(--text);
     background: color-mix(in srgb, var(--brand) 5%, transparent);
     border: 1px solid color-mix(in srgb, var(--brand) 20%, var(--border));
+    text-align: center;
   }
   
   .nav-list a:hover {

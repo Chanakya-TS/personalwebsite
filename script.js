@@ -12,10 +12,13 @@
     const isOpen = navList.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(isOpen));
     
-    // Prevent body scroll when menu is open
+    // Move nav-list to body to escape stacking context issues
     if (isOpen) {
+      document.body.appendChild(navList);
       document.body.style.overflow = 'hidden';
     } else {
+      // Move it back to its original parent
+      document.querySelector('.nav').appendChild(navList);
       document.body.style.overflow = '';
     }
   });
@@ -41,6 +44,7 @@
           (!navList.contains(e.target) && !navToggle?.contains(e.target))) {
         navList.classList.remove('open');
         navToggle?.setAttribute('aria-expanded', 'false');
+        document.querySelector('.nav').appendChild(navList);
         document.body.style.overflow = '';
       }
     }
@@ -51,6 +55,7 @@
     if (e.key === 'Escape' && navList?.classList.contains('open')) {
       navList.classList.remove('open');
       navToggle?.setAttribute('aria-expanded', 'false');
+      document.querySelector('.nav').appendChild(navList);
       document.body.style.overflow = '';
     }
   });
@@ -62,6 +67,7 @@
     if (currentWidth > 760 && previousWidth <= 760 && navList?.classList.contains('open')) {
       navList.classList.remove('open');
       navToggle?.setAttribute('aria-expanded', 'false');
+      document.querySelector('.nav').appendChild(navList);
       document.body.style.overflow = '';
     }
     previousWidth = currentWidth;
@@ -82,6 +88,7 @@
         if (navList?.classList.contains('open')) {
           navList.classList.remove('open');
           navToggle?.setAttribute('aria-expanded', 'false');
+          document.querySelector('.nav').appendChild(navList);
           document.body.style.overflow = '';
         }
         
