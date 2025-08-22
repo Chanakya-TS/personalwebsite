@@ -14,7 +14,7 @@
 /* Light theme removed; dark-only site */
 
 * { box-sizing: border-box; }
-html, body { height: 100%; }
+html, body { height: 100%; overflow-x: hidden; }
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -254,13 +254,12 @@ details.card .card-content { padding: 12px 14px; }
 .site-header, main, .site-footer { position: relative; z-index: 1; }
 
 
-/* Honors marquee */
-.marquee { position: relative; overflow: visible; padding: 8px 0; mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); z-index: 2; }
-.marquee__track { display: flex; width: max-content; animation: marquee 22s linear infinite; gap: 24px; }
-.marquee__group { display: inline-flex; align-items: center; gap: 12px; padding-right: 24px; }
+/* Honors display */
+.marquee { position: relative; overflow: visible; padding: 8px 0; z-index: 2; }
+.marquee__track { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.marquee__group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .marquee__item { white-space: nowrap; }
-.marquee:hover .marquee__track { animation-play-state: paused; }
-/* Larger, accented chips within marquee */
+/* Larger, accented chips within honors */
 .marquee .chip { font-size: 14px; padding: 10px 14px; border-color: color-mix(in srgb, var(--brand) 35%, var(--border)); background-image: linear-gradient(180deg, color-mix(in srgb, var(--brand) 8%, transparent), transparent); }
 
 /* JS-driven tooltip container */
@@ -282,7 +281,6 @@ details.card .card-content { padding: 12px 14px; }
 }
 #tooltip[data-pos="above"] { transform: translate(-50%, -10px); }
 #tooltip[data-pos="below"] { transform: translate(-50%, 10px); }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* Enhanced Mobile Responsiveness */
 
