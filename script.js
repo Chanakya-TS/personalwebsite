@@ -12,6 +12,9 @@
     const isOpen = navList.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(isOpen));
     
+    // Change button content between hamburger and close
+    navToggle.textContent = isOpen ? '✕' : '☰';
+    
     // Move nav-list to body to escape stacking context issues
     if (isOpen) {
       document.body.appendChild(navList);
@@ -44,6 +47,7 @@
           (!navList.contains(e.target) && !navToggle?.contains(e.target))) {
         navList.classList.remove('open');
         navToggle?.setAttribute('aria-expanded', 'false');
+        if (navToggle) navToggle.textContent = '☰';
         document.querySelector('.nav').appendChild(navList);
         document.body.style.overflow = '';
       }
@@ -55,6 +59,7 @@
     if (e.key === 'Escape' && navList?.classList.contains('open')) {
       navList.classList.remove('open');
       navToggle?.setAttribute('aria-expanded', 'false');
+      if (navToggle) navToggle.textContent = '☰';
       document.querySelector('.nav').appendChild(navList);
       document.body.style.overflow = '';
     }
@@ -67,6 +72,7 @@
     if (currentWidth > 760 && previousWidth <= 760 && navList?.classList.contains('open')) {
       navList.classList.remove('open');
       navToggle?.setAttribute('aria-expanded', 'false');
+      if (navToggle) navToggle.textContent = '☰';
       document.querySelector('.nav').appendChild(navList);
       document.body.style.overflow = '';
     }
@@ -90,6 +96,7 @@
         console.log('Closing mobile menu'); // Debug log
         navList.classList.remove('open');
         navToggle?.setAttribute('aria-expanded', 'false');
+        if (navToggle) navToggle.textContent = '☰';
         document.querySelector('.nav')?.appendChild(navList);
         document.body.style.overflow = '';
         
@@ -229,6 +236,46 @@
   // Call on load and resize
   improveTouchTargets();
   window.addEventListener('resize', improveTouchTargets);
+
+  // Brand animation on scroll
+  const brand = document.querySelector('.brand');
+  const heroSection = document.querySelector('.hero');
+  
+  if (brand && heroSection) {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      
+      // Trigger when scrolled past 300px (roughly past hero section)
+      if (scrollY > 300) {
+        brand.classList.add('expanded');
+      } else {
+        brand.classList.remove('expanded');
+      }
+    };
+
+    // Multiple event listeners for maximum compatibility
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    document.documentElement.addEventListener('scroll', handleScroll, { passive: true });
+    document.body.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // RequestAnimationFrame for smooth performance
+    let ticking = false;
+    const rafHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', rafHandleScroll, { passive: true });
+    
+    // Check initial state
+    handleScroll();
+  }
 })();
 
 
