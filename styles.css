@@ -231,6 +231,15 @@ details.card .card-content { padding: 12px 14px; }
   overflow: hidden;
 }
 
+/* Skills Groups */
+.skills-groups { display: flex; flex-direction: column; gap: 24px; }
+.skill-group h3 { 
+  margin: 0 0 12px 0; 
+  color: var(--text); 
+  font-size: 14px; 
+  font-weight: 600; 
+}
+
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { padding: 7px 9px; border-radius: 999px; border: 1px solid var(--border); background: var(--card); font-size: 12px; }
 
